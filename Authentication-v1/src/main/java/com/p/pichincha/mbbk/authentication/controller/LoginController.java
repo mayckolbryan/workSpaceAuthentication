@@ -30,6 +30,18 @@ public class LoginController {
 	@Value("${security.signing-key}")
 	private String signingKey;
 	
+	@Value("${security.url-api-person}")
+	private String urlApiPerson;
+	
+	@Value("${security.url-api-person-end}")
+	private String urlApiPersonEnd;
+	
+	@Value("${security.url-api-setting}")
+	private String urlApiSetting;
+	
+	@Value("${security.url-api-setting-end}")
+	private String urlApiSettingEnd;
+	
 	@Autowired
 	private IPersonService personService;
 	
@@ -42,8 +54,8 @@ public class LoginController {
 		String tokenJwt= "";
 		
 		RestTemplate restTemplatePerson = new RestTemplate();
-        PersonDTO personDTO = restTemplatePerson.getForObject("http://demo1640959.mockable.io/channel/mbbk/v1.0/persons/123456789/data", PersonDTO.class);
         
+		PersonDTO personDTO = restTemplatePerson.getForObject(urlApiPerson + requestDTO.IBSCode + urlApiPersonEnd, PersonDTO.class);
 //		Person per = new Person();		
 //		per = personService.leerPorIbs(requestDTO.getIBSCode());
 		
@@ -65,7 +77,7 @@ public class LoginController {
 
 			SettingDTO settingDTO = new SettingDTO();
 	        RestTemplate restTemplateSetting = new RestTemplate();
-	        settingDTO = restTemplateSetting.getForObject("http://demo1640959.mockable.io/channel/mbbk/v1.0/config/persons/123456789/settings", SettingDTO.class);
+	        settingDTO = restTemplateSetting.getForObject(urlApiSetting + requestDTO.IBSCode + urlApiSettingEnd, SettingDTO.class);
 			
 	        DataSettingDTO settingResponse = new DataSettingDTO(settingDTO.getData().isShowAmount());
 			
