@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SettingDTO extends HeaderDTO{
+public class SettingDTO extends ResponseDTO{
 
 	private DataSettingDTO data;
 }

@@ -8,16 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "setting")
+@NoArgsConstructor
 public class Setting {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	
+	@Id
 	@Column(name = "ibs", nullable = false, length = 9)
 	private String ibs;
 

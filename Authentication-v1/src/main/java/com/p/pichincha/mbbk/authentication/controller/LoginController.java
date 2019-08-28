@@ -22,6 +22,7 @@ import com.p.pichincha.mbbk.authentication.model.Session;
 import com.p.pichincha.mbbk.authentication.service.IPersonService;
 import com.p.pichincha.mbbk.authentication.service.ISessionService;
 import com.p.pichincha.mbbk.authentication.util.TokenUtil;
+import com.p.pichincha.mbbk.authentication.util.UidUtil;
 
 @RestController
 @RequestMapping("/channel/mbbk/v1.0/auth/session")
@@ -33,14 +34,8 @@ public class LoginController {
 	@Value("${security.url-api-person}")
 	private String urlApiPerson;
 	
-	@Value("${security.url-api-person-end}")
-	private String urlApiPersonEnd;
-	
 	@Value("${security.url-api-setting}")
 	private String urlApiSetting;
-	
-	@Value("${security.url-api-setting-end}")
-	private String urlApiSettingEnd;
 	
 	@Autowired
 	private IPersonService personService;
@@ -53,16 +48,17 @@ public class LoginController {
 		LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
 		String tokenJwt= "";
 		
+		LocalDateTime dateStart =  LocalDateTime.now();
+		LocalDateTime dateExpiration = dateStart.plusSeconds(TokenUtil.TIME_EXPIRATION_SECONDS);
+		String uid = UidUtil.encodeUid(requestDTO.IBSCode, dateStart);
+		
 		RestTemplate restTemplatePerson = new RestTemplate();
         
-		PersonDTO personDTO = restTemplatePerson.getForObject(urlApiPerson + requestDTO.IBSCode + urlApiPersonEnd, PersonDTO.class);
+		PersonDTO personDTO = restTemplatePerson.getForObject(String.format(urlApiPerson, uid), PersonDTO.class);
 //		Person per = new Person();		
 //		per = personService.leerPorIbs(requestDTO.getIBSCode());
 		
 		if (personDTO!=null && personDTO.getData().getName() != null) {
-			LocalDateTime dateStart =  LocalDateTime.now();
-			LocalDateTime dateExpiration = dateStart.plusSeconds(TokenUtil.TIME_EXPIRATION_SECONDS);
-			String uid = TokenUtil.getUid(requestDTO.IBSCode, dateStart);
 			
 			TokenUtil tokenUtil = new TokenUtil();
 			tokenJwt = tokenUtil.getJWTToken(signingKey, requestDTO.IBSCode, dateStart, dateExpiration);
@@ -77,7 +73,7 @@ public class LoginController {
 
 			SettingDTO settingDTO = new SettingDTO();
 	        RestTemplate restTemplateSetting = new RestTemplate();
-	        settingDTO = restTemplateSetting.getForObject(urlApiSetting + requestDTO.IBSCode + urlApiSettingEnd, SettingDTO.class);
+	        settingDTO = restTemplateSetting.getForObject(String.format(urlApiSetting, uid), SettingDTO.class);
 			
 	        DataSettingDTO settingResponse = new DataSettingDTO(settingDTO.getData().isShowAmount());
 			

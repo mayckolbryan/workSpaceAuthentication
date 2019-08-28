@@ -40,13 +40,4 @@ public class TokenUtil {
 		
 		return "Bearer " + token;
 	}
-
-	public static String getUid(String ibs, LocalDateTime dateStart) {
-		
-		String uid = String.valueOf(dateStart.getSecond()) + String.valueOf(dateStart.getMinute())
-					+ String.valueOf(dateStart.getHour()) + ibs + String.valueOf(dateStart.getYear())
-					+ String.valueOf(dateStart.getMonthValue()) + String.valueOf(dateStart.getDayOfMonth());
-		
-		return uid;
-	}
 }

@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponseDTO extends ResponseDTO{
+public class ResponseDTO {
 
-	private DataLoginDTO data;
+	public String code;
+	public String description;
 }
