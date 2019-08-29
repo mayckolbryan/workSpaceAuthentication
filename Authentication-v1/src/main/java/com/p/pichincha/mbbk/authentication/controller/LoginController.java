@@ -54,9 +54,8 @@ public class LoginController {
 		
 		RestTemplate restTemplatePerson = new RestTemplate();
         
-		PersonDTO personDTO = restTemplatePerson.getForObject(String.format(urlApiPerson, uid), PersonDTO.class);
-//		Person per = new Person();		
-//		per = personService.leerPorIbs(requestDTO.getIBSCode());
+//		PersonDTO personDTO = restTemplatePerson.getForObject(String.format(urlApiPerson, uid), PersonDTO.class);
+		PersonDTO personDTO = personService.leerPorIbs(requestDTO.IBSCode);
 		
 		if (personDTO!=null && personDTO.getData().getName() != null) {
 			

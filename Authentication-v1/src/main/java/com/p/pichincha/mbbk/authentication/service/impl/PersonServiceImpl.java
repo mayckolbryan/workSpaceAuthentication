@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.p.pichincha.mbbk.authentication.dao.IPersonDAO;
+import com.p.pichincha.mbbk.authentication.dto.DataPersonDTO;
+import com.p.pichincha.mbbk.authentication.dto.PersonDTO;
 import com.p.pichincha.mbbk.authentication.model.Person;
 import com.p.pichincha.mbbk.authentication.service.IPersonService;
 
@@ -14,8 +16,13 @@ public class PersonServiceImpl implements IPersonService{
 	private IPersonDAO personDao;
 	
 	@Override
-	public Person leerPorIbs(String ibs) {
-		return personDao.findByIbs(ibs);
+	public PersonDTO leerPorIbs(String ibs) {
+		Person person = personDao.findByIbs(ibs);
+		PersonDTO personDTO = new PersonDTO();
+		personDTO.setData(new DataPersonDTO());
+		personDTO.getData().setName(person.getName());
+		personDTO.getData().setLastName(person.getLastName());
+		return personDTO;
 	}
 
 }
