@@ -13,11 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class DataPersonDTO {
+public class PersonResponseDTO extends ResponseDTO{
 
-	@JsonProperty("name")
-	private String name;
-	
-	@JsonProperty("lastName")
-	private String lastName;
+	@JsonProperty("data")
+	private DataPersonDTO data;
 }

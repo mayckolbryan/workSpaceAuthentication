@@ -34,7 +34,7 @@ public class AuthenticationV1Application extends SpringBootServletInitializer{
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/channel/mbbk/v1.0/auth/session/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/channel/mbbk/v1.0/auth/session/login").permitAll()
 				.anyRequest().authenticated();
 		}
 	}

@@ -1,8 +1,8 @@
 package com.p.pichincha.mbbk.authentication.service;
 
-import com.p.pichincha.mbbk.authentication.dto.PersonDTO;
+import com.p.pichincha.mbbk.authentication.dto.PersonResponseDTO;
 
 public interface IPersonService {
 
-	PersonDTO leerPorIbs(String IBS);
+	PersonResponseDTO leerPorIbs(String IBS);
 }

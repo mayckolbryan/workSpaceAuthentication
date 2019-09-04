@@ -19,7 +19,7 @@ public class TokenUtil {
 //	@Value("${security.signing}")
 //	String signingKey;
 	
-	public static final Long TIME_EXPIRATION_SECONDS = 60L;
+	public static final Long TIME_EXPIRATION_SECONDS = 1800L;
 
 	public String getJWTToken(String signingKey, String ibs, LocalDateTime dateStart, LocalDateTime dateExpiration) {
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils

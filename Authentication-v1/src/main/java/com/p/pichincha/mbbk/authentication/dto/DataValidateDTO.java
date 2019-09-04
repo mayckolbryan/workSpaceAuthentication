@@ -6,18 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class DataPersonDTO {
+public class DataValidateDTO {
 
-	@JsonProperty("name")
-	private String name;
-	
-	@JsonProperty("lastName")
-	private String lastName;
+	@JsonProperty("validate")
+	private boolean validate;
 }

@@ -6,4 +6,5 @@ import com.p.pichincha.mbbk.authentication.model.Session;
 
 public interface ISessionDAO extends JpaRepository<Session, String>{
 
+	Session findByToken(String token);
 }
